@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFFFFF">
+
+    <!-- Logo Circle -->
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:text="🍴"
+        android:textSize="50sp"
+        android:background="@drawable/bg_splash_logo"
+        android:elevation="8dp" />
+
+    <!-- App Name -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/app_name"
+        android:textColor="#08752F"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <!-- Tagline -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/splash_tagline"
+        android:textColor="#4A9C43"
+        android:textSize="11sp"
+        android:letterSpacing="0.15" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/splash_subtitle"
+        android:textColor="#7AAE71"
+        android:textSize="12sp" />
+
+    <!-- Space -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <!-- READY text -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_ready"
+        android:textColor="#72B86A"
+        android:textSize="10sp"
+        android:letterSpacing="0.15" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:layout_width="220dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="10dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:progress="100"
+        android:progressDrawable="@drawable/bg_splash_progress" />
+
+    <!-- Percentage -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/splash_percentage"
+        android:textColor="#21963B"
+        android:textSize="10sp" />
+
+</LinearLayout>

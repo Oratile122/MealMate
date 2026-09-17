@@ -1,0 +1,158 @@
+<resources>
+    <string name="app_name">MealMate</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_tagline">PLAN · EAT · SAVE</string>
+    <string name="splash_subtitle">Your student meal companion</string>
+    <string name="splash_ready">READY!</string>
+    <string name="splash_percentage">100%</string>
+
+    <!-- Login Screen -->
+    <string name="login_welcome">Welcome back!</string>
+    <string name="login_subtitle">Sign in to plan your meals for the week</string>
+    <string name="login_email_label">Email address</string>
+    <string name="login_email_hint">you@university.edu</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_forgot_password">Forgot password?</string>
+    <string name="login_button">Log in</string>
+    <string name="login_or">or continue with</string>
+    <string name="login_google">Sign in with Google</string>
+    <string name="login_register_prompt">New to MealMate?</string>
+    <string name="login_register_link">Create an account</string>
+
+    <!-- Register Screen -->
+    <string name="register_title">Create your account</string>
+    <string name="register_subtitle">Join MealMate and start planning smarter</string>
+    <string name="register_name_label">Full name</string>
+    <string name="register_name_hint">Your full name</string>
+    <string name="register_email_label">Email address</string>
+    <string name="register_email_hint">you@university.edu</string>
+    <string name="register_password_label">Password</string>
+    <string name="register_password_hint">Create a password</string>
+    <string name="register_confirm_label">Confirm password</string>
+    <string name="register_confirm_hint">Confirm your password</string>
+    <string name="register_button">Create account</string>
+    <string name="register_login_prompt">Already have an account?</string>
+    <string name="register_login_link">Log in</string>
+
+    <!-- Home Screen -->
+    <string name="home_date">Monday, 18 Aug</string>
+    <string name="home_greeting">Hi, %s 🐟</string>
+    <string name="home_budget_label">WEEKLY BUDGET</string>
+    <string name="home_budget_amount">R 380 / R 500</string>
+    <string name="home_budget_spent">Spent 76%</string>
+    <string name="home_budget_left">R 120 left</string>
+    <string name="home_days_left">5 days left</string>
+    <string name="home_today_meals">Today\'s Meals</string>
+    <string name="home_edit_plan">Edit plan</string>
+    <string name="home_breakfast_label">BREAKFAST · 07:30</string>
+    <string name="home_breakfast_name">Oat Porridge &amp; Banana</string>
+    <string name="home_breakfast_cost">R 28</string>
+    <string name="home_breakfast_cal">340 kcal</string>
+    <string name="home_lunch_label">LUNCH · 13:00</string>
+    <string name="home_lunch_name">Chicken &amp; Rice Bowl</string>
+    <string name="home_lunch_cost">R 65</string>
+    <string name="home_lunch_cal">580 kcal</string>
+    <string name="home_dinner_label">DINNER · 18:30</string>
+    <string name="home_dinner_name">Lentil Soup &amp; Bread</string>
+    <string name="home_dinner_cost">R 42</string>
+    <string name="home_dinner_cal">410 kcal</string>
+    <string name="home_nutrition_title">Today\'s Nutrition</string>
+    <string name="home_cal_value">1,330</string>
+    <string name="home_cal_label">CALORIES</string>
+    <string name="home_protein_value">68g</string>
+    <string name="home_protein_label">PROTEIN</string>
+    <string name="home_carbs_value">182g</string>
+    <string name="home_carbs_label">CARBS</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">🏠 Home</string>
+    <string name="nav_planner">📅 Planner</string>
+    <string name="nav_shop">🛒 Shop</string>
+    <string name="nav_profile">👤 Profile</string>
+
+    <!-- Weekly Plan -->
+    <string name="weekly_title">Weekly Plan</string>
+    <string name="weekly_week">Week 1 — August</string>
+    <string name="weekly_dates">Aug 4 – Aug 8, 2026</string>
+    <string name="weekly_total_cost">Total Cost</string>
+    <string name="weekly_total_value">R 66.70</string>
+    <string name="weekly_meals_planned">Meals planned</string>
+    <string name="weekly_meals_value">10/15</string>
+    <string name="weekly_per_day">Per day avg</string>
+    <string name="weekly_per_day_value">R 13.34</string>
+    <string name="weekly_add_meal">+ Add Meal</string>
+    <string name="weekly_hint">Tap a meal card to remove · Tap + to add randomly</string>
+
+    <!-- Create Meal -->
+    <string name="create_meal_title">Add New Meal</string>
+    <string name="create_meal_subtitle">Log your meal</string>
+    <string name="create_meal_subtitle2">Track nutrition &amp; spending</string>
+    <string name="create_meal_name_label">MEAL NAME</string>
+    <string name="create_meal_name_hint">e.g. Chicken Caesar Salad</string>
+    <string name="create_meal_category_label">CATEGORY</string>
+    <string name="create_meal_category_default">Select a category</string>
+    <string name="create_meal_ingredients_label">INGREDIENTS</string>
+    <string name="create_meal_ingredients_hint">e.g. Romaine lettuce, grilled chicken...</string>
+    <string name="create_meal_cost_label">COST (R)</string>
+    <string name="create_meal_cost_hint">R 0.00</string>
+    <string name="create_meal_cal_label">CALORIES</string>
+    <string name="create_meal_cal_hint">kcal</string>
+    <string name="create_meal_tip">Tip: Add calories from the packaging label or use the Nutrition Facts table.</string>
+    <string name="create_meal_save">Save Meal</string>
+
+    <!-- Shopping List -->
+    <string name="shopping_title">Shopping List</string>
+    <string name="shopping_items_picked">0 of 8 items picked</string>
+    <string name="shopping_total">TOTAL</string>
+    <string name="shopping_total_value">R 17.72</string>
+    <string name="shopping_clear">Clear List</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Profile</string>
+    <string name="settings_name">Guest User</string>
+    <string name="settings_email">guest@email.com</string>
+    <string name="settings_premium">Premium Member</string>
+    <string name="settings_preferences">PREFERENCES</string>
+    <string name="settings_budget">Budget</string>
+    <string name="settings_budget_value">R 500/week</string>
+    <string name="settings_dietary">Dietary Preference</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_account">ACCOUNT</string>
+    <string name="settings_edit_profile">Edit Profile</string>
+    <string name="settings_edit_profile_desc">Update your personal info</string>
+    <string name="settings_privacy">Privacy Policy</string>
+    <string name="settings_privacy_desc">How we use your data</string>
+    <string name="settings_help">Help and Support</string>
+    <string name="settings_help_desc">FAQs and contact</string>
+    <string name="settings_save">Save Changes</string>
+    <string name="settings_logout">Log Out</string>
+    <string name="settings_version">MealMate v2.4.1</string>
+
+    <!-- Misc -->
+    <string name="back_arrow">‹</string>
+    <string name="arrow_right">›</string>
+
+    <!-- Spinner Options -->
+    <string-array name="dietary_options">
+        <item>None</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten-Free</item>
+    </string-array>
+
+    <string-array name="language_options">
+        <item>English</item>
+        <item>IsiZulu</item>
+        <item>Afrikaans</item>
+    </string-array>
+
+    <string-array name="meal_categories">
+        <item>Select a category</item>
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Snack</item>
+    </string-array>
+</resources>
