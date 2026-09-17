@@ -70,10 +70,10 @@ Every concept, fix, or solution suggested by AI was:
 ## Team Contribution
 
 | Member | Role | AI Usage |
-|--------|------|----------|
+|------|------|----------|
 | **Oratile Morudi** | Lead Developer | Used AI for conceptual learning and debugging support during Android development |
-| **[Member 2 Name]** | UI/UX Assistant | Did not use AI tools |
-| **[Member 3 Name]** | Documentation & Testing | Did not use AI tools |
+| **Mbalenhle Mngomezulu** | UI/UX Assistant | Did not use AI tools |
+| **Busisiwe nyembe** | Documentation & Testing | Did not use AI tools |
 
 ---
 
