@@ -46,17 +46,19 @@ class SettingsActivity : AppCompatActivity() {
         val userName = prefs.getString("displayName", "Guest User")
             ?: intent.getStringExtra("USER_NAME") ?: "Guest User"
 
-        Log.d(TAG, "Settings loaded: email='$userEmail', name='$userName'")
+        Log.d(TAG, "Settings loaded → email='$userEmail', name='$userName'")
+
 
         tvDisplayName.text = userName
-        tvEmail.text = userEmail.ifEmpty { "guest@email.com" }
+        tvEmail.text = if (userEmail.isNotEmpty()) userEmail else "No email found"
 
-        // Setup spinners
+        // Setup dietary spinner
         val dietaryOptions = arrayOf("None", "Vegetarian", "Vegan", "Gluten-Free")
         val dietaryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dietaryOptions)
         dietaryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerDietary.adapter = dietaryAdapter
 
+        // Setup language spinner
         val languageOptions = arrayOf("English", "IsiZulu", "Afrikaans")
         val languageAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languageOptions)
         languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -68,6 +70,13 @@ class SettingsActivity : AppCompatActivity() {
                 db.userDao().getUserByEmail(userEmail)
             }
             if (user != null) {
+                Log.d(TAG, "User found in DB: ${user.displayName}, ${user.email}")
+
+                // Show DB values (source of truth)
+                tvDisplayName.text = user.displayName
+                tvEmail.text = user.email
+
+                // Set spinner to current values
                 val dietaryPos = dietaryOptions.indexOf(user.dietaryPreference)
                 if (dietaryPos >= 0) spinnerDietary.setSelection(dietaryPos)
 
@@ -75,43 +84,47 @@ class SettingsActivity : AppCompatActivity() {
                 if (langPos >= 0) spinnerLanguage.setSelection(langPos)
 
                 switchNotifications.isChecked = user.notifications
+            } else {
+                Log.w(TAG, "User NOT found in DB for '$userEmail'")
             }
         }
 
         btnBack.setOnClickListener { finish() }
 
         btnSave.setOnClickListener {
-            if (userEmail.isNotEmpty()) {
-                lifecycleScope.launch {
-                    val user = withContext(Dispatchers.IO) {
-                        db.userDao().getUserByEmail(userEmail)
+            if (userEmail.isEmpty()) {
+                Toast.makeText(this, "No user session found", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            lifecycleScope.launch {
+                val user = withContext(Dispatchers.IO) {
+                    db.userDao().getUserByEmail(userEmail)
+                }
+
+                if (user != null) {
+                    val updated = user.copy(
+                        dietaryPreference = spinnerDietary.selectedItem.toString(),
+                        language = spinnerLanguage.selectedItem.toString(),
+                        notifications = switchNotifications.isChecked
+                    )
+                    withContext(Dispatchers.IO) {
+                        db.userDao().updateUser(updated)
                     }
-                    if (user != null) {
-                        withContext(Dispatchers.IO) {
-                            db.userDao().updateUser(
-                                user.copy(
-                                    dietaryPreference = spinnerDietary.selectedItem.toString(),
-                                    language = spinnerLanguage.selectedItem.toString(),
-                                    notifications = switchNotifications.isChecked
-                                )
-                            )
-                        }
-                        Log.d(TAG, "Settings saved for $userEmail")
-                    }
+                    Log.d(TAG, "Settings saved for '$userEmail'")
+                    Toast.makeText(this@SettingsActivity, "Settings saved!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@SettingsActivity, "Could not save settings", Toast.LENGTH_SHORT).show()
                 }
             }
-            Toast.makeText(this, "Settings saved!", Toast.LENGTH_SHORT).show()
         }
 
         btnLogout.setOnClickListener {
             lifecycleScope.launch {
-
                 withContext(Dispatchers.IO) {
                     db.userDao().logoutAllUsers()
                 }
-
                 Log.d(TAG, "User logged out (data preserved)")
-
 
                 Toast.makeText(this@SettingsActivity, "Logged out", Toast.LENGTH_SHORT).show()
 

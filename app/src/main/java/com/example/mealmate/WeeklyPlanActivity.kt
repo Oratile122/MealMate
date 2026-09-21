@@ -7,13 +7,16 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class WeeklyPlanActivity : AppCompatActivity() {
 
@@ -36,6 +39,9 @@ class WeeklyPlanActivity : AppCompatActivity() {
         btnAddMeal.setOnClickListener {
             startActivity(Intent(this, CreateMealActivity::class.java))
         }
+
+
+        setCurrentWeekInfo()
     }
 
     override fun onResume() {
@@ -43,6 +49,50 @@ class WeeklyPlanActivity : AppCompatActivity() {
         if (::db.isInitialized) {
             loadSummary()
         }
+    }
+
+
+    private fun setCurrentWeekInfo() {
+        val tvWeekLabel = findViewById<TextView>(R.id.tvWeekLabel)
+        val tvWeekDates = findViewById<TextView>(R.id.tvWeekDates)
+
+        // Get today's date
+        val calendar = Calendar.getInstance()
+        val today = calendar.time
+
+        // Calculate week number (which week of the year)
+        val weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR)
+
+        // Get current month name
+        val monthFormat = SimpleDateFormat("MMMM", Locale.ENGLISH)
+        val monthName = monthFormat.format(today)
+
+        // Get this week's Monday
+        val mondayCal = calendar.clone() as Calendar
+        mondayCal.firstDayOfWeek = Calendar.MONDAY
+        mondayCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+
+        // Get this week's Friday
+        val fridayCal = calendar.clone() as Calendar
+        fridayCal.firstDayOfWeek = Calendar.MONDAY
+        fridayCal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+
+        // Format the date range
+        val dateFormat = SimpleDateFormat("MMM d", Locale.ENGLISH)
+        val yearFormat = SimpleDateFormat("yyyy", Locale.ENGLISH)
+
+        val mondayText = dateFormat.format(mondayCal.time)
+        val fridayText = dateFormat.format(fridayCal.time)
+        val yearText = yearFormat.format(today)
+
+
+        tvWeekLabel.text = "Week $weekOfYear — $monthName"
+
+
+        tvWeekDates.text = "$mondayText – $fridayText, $yearText"
+
+        Log.d(TAG, "Week: $weekOfYear, Month: $monthName")
+        Log.d(TAG, "Dates: $mondayText – $fridayText, $yearText")
     }
 
     private fun loadSummary() {
@@ -75,16 +125,6 @@ class WeeklyPlanActivity : AppCompatActivity() {
                 tvTotalCost.text = "R %.2f".format(totalCost)
                 tvMealsPlanned.text = "$totalMeals/$totalSlots"
                 tvPerDayAvg.text = "R %.2f".format(perDay)
-
-
-                val breakfast = meals.find { it.category == "Breakfast" }
-                val lunch = meals.find { it.category == "Lunch" }
-                val dinner = meals.find { it.category == "Dinner" }
-
-                // Optional: Show meal count toast so user knows it worked
-                if (totalMeals > 0) {
-                    Log.d(TAG, "Summary updated: $totalMeals meals, R$totalCost total")
-                }
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error loading meals: ${e.message}", e)

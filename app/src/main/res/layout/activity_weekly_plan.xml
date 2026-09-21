@@ -62,7 +62,9 @@
                 android:textColor="#19B957"
                 android:padding="8dp" />
 
+
             <TextView
+                android:id="@+id/tvWeekLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -82,7 +84,9 @@
 
         </LinearLayout>
 
+
         <TextView
+            android:id="@+id/tvWeekDates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/weekly_dates"

@@ -13,6 +13,9 @@ import com.example.mealmate.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var db: AppDatabase
     private lateinit var prefs: SharedPreferences
 
+    private lateinit var tvDate: TextView
     private lateinit var tvWelcome: TextView
     private lateinit var tvBudget: TextView
     private lateinit var tvBudgetSpent: TextView
@@ -48,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
         prefs = getSharedPreferences("MealMatePrefs", Context.MODE_PRIVATE)
 
         // Initialize views
+        tvDate = findViewById(R.id.tvDate)
         tvWelcome = findViewById(R.id.tvWelcome)
         tvBudget = findViewById(R.id.tvBudgetRemaining)
         tvBudgetSpent = findViewById(R.id.tvBudgetSpent)
@@ -64,6 +69,11 @@ class HomeActivity : AppCompatActivity() {
         tvNutritionCal = findViewById(R.id.tvNutritionCal)
         tvNutritionProtein = findViewById(R.id.tvNutritionProtein)
         tvNutritionCarbs = findViewById(R.id.tvNutritionCarbs)
+
+
+        val currentDate = SimpleDateFormat("EEEE, d MMM", Locale.ENGLISH).format(Date())
+        tvDate.text = currentDate
+        Log.d(TAG, "Date set to: $currentDate")
 
         // Bottom navigation buttons
         val btnHome = findViewById<TextView>(R.id.btnHome)
@@ -145,12 +155,11 @@ class HomeActivity : AppCompatActivity() {
                     tvBudgetLeft.text = "R 500 left"
                 }
 
-                // ✅ Load meals from RoomDB
+                // Load meals from RoomDB
                 val meals = withContext(Dispatchers.IO) {
                     db.mealDao().getMealsByUser(userEmail)
                 }
 
-                // ✅ DEBUG: Log every meal found
                 Log.d(TAG, "=== HOME DEBUG ===")
                 Log.d(TAG, "Looking for user: '$userEmail'")
                 Log.d(TAG, "Found ${meals.size} meals")

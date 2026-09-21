@@ -1,6 +1,8 @@
 package com.example.mealmate
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -22,12 +24,14 @@ class LoginActivity : AppCompatActivity() {
 
     private val TAG = "LoginActivity"
     private lateinit var db: AppDatabase
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         db = AppDatabase.getInstance(this)
+        prefs = getSharedPreferences("MealMatePrefs", Context.MODE_PRIVATE)
 
         val etEmail: TextInputEditText = findViewById(R.id.etEmail)
         val etPassword: TextInputEditText = findViewById(R.id.etPassword)
@@ -85,6 +89,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                     Log.d(TAG, "User logged in via RoomDB: $email")
 
+
+                    prefs.edit()
+                        .putString("email", localUser.email)
+                        .putString("displayName", localUser.displayName)
+                        .apply()
+                    Log.d(TAG, "Saved to prefs: email='${localUser.email}', name='${localUser.displayName}'")
+
                     // Sync with API in background
                     trySyncWithApi(email, password)
 
@@ -130,6 +141,12 @@ class LoginActivity : AppCompatActivity() {
                                     db.userDao().logoutAllUsers()
                                     db.userDao().insertUser(user)
                                 }
+
+                                prefs.edit()
+                                    .putString("email", user.email)
+                                    .putString("displayName", user.displayName)
+                                    .apply()
+                                Log.d(TAG, "Saved to prefs (API): email='${user.email}', name='${user.displayName}'")
 
                                 Toast.makeText(
                                     this@LoginActivity,

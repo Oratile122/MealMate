@@ -1,12 +1,14 @@
-# MealMate 🍴
+# MealMate 
 
 > **Plan. Eat. Save.**
+
+![Android CI](https://github.com/Oratile122/MealMate/actions/workflows/workflow.yml/badge.svg)
 
 A student meal planning app built for OPSC6312 Part 2.
 
 ---
 
-## Purpose of the App
+##  Purpose of the App
 
 MealMate helps students manage their food budget and plan meals. It addresses the common problem of poor budgeting and unhealthy eating among university students by providing:
 
@@ -59,21 +61,37 @@ The app targets South African students managing tight food budgets (default: R 5
 
 ---
 
-## ⚙ GitHub Actions Utilisation
+##  GitHub Actions Utilisation
+
+![Android CI](https://github.com/Oratile122/MealMate/actions/workflows/workflow.yml/badge.svg)
 
 This project uses **GitHub Actions** to automatically:
 
-- Build the Android app on every push to `main`
-- Run all **10 unit tests** on a clean build environment
-- Verify the project compiles without local IDE dependencies
+-  Build the Android app on every push to `main`
+-  Run all **10 unit tests** on a clean build environment
+-  Verify the project compiles without local IDE dependencies
 
-Workflow file: `.github/workflows/android.yml`
+**Status:** [View all workflow runs →](https://github.com/Oratile122/MealMate/actions)
+
+Workflow file: `.github/workflows/workflow.yml`
 
 This ensures the app is portable — it doesn't just work on the developer's machine.
 
+### What the Workflow Does
+
+| Step | Action |
+|------|--------|
+| 1. Checkout | Downloads the latest code |
+| 2. Setup Java 17 | Installs the correct JDK |
+| 3. Grant permission | Makes `gradlew` executable |
+| 4. Create local.properties | Points to the Android SDK |
+| 5. Run tests | Executes `./gradlew test --no-daemon` |
+
+All steps run on GitHub's clean Ubuntu machines — not on the developer's computer.
+
 ---
 
-## Unit Tests
+##  Unit Tests
 
 The project includes **10 unit tests** covering:
 
