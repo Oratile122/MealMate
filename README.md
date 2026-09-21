@@ -1,4 +1,4 @@
-# MealMate 
+# MealMate 🍴
 
 > **Plan. Eat. Save.**
 
@@ -8,7 +8,7 @@ A student meal planning app built for OPSC6312 Part 2.
 
 ---
 
-##  Purpose of the App
+## 🎯 Purpose of the App
 
 MealMate helps students manage their food budget and plan meals. It addresses the common problem of poor budgeting and unhealthy eating among university students by providing:
 
@@ -21,7 +21,7 @@ The app targets South African students managing tight food budgets (default: R 5
 
 ---
 
-##  Design Considerations
+## 🎨 Design Considerations
 
 ### Architecture
 - **MVVM-inspired** structure with Activity-driven logic
@@ -51,7 +51,7 @@ The app targets South African students managing tight food budgets (default: R 5
 
 ---
 
-##  GitHub Utilisation
+## 🔧 GitHub Utilisation
 
 **Repository:** [https://github.com/Oratile122/MealMate](https://github.com/Oratile122/MealMate)
 
@@ -60,16 +60,21 @@ The app targets South African students managing tight food budgets (default: R 5
 - Project structured for clean collaboration
 
 ---
+## 🎥 Demo Video
 
-##  GitHub Actions Utilisation
+📹 **[Watch the MealMate demo video](https://youtu.be/c22LDSKUfMs?si=tRd3mSZ2IGgIef4n)**
+
+---
+
+## ⚙️ GitHub Actions Utilisation
 
 ![Android CI](https://github.com/Oratile122/MealMate/actions/workflows/workflow.yml/badge.svg)
 
 This project uses **GitHub Actions** to automatically:
 
--  Build the Android app on every push to `main`
--  Run all **10 unit tests** on a clean build environment
--  Verify the project compiles without local IDE dependencies
+- ✅ Build the Android app on every push to `main`
+- ✅ Run all **10 unit tests** on a clean build environment
+- ✅ Verify the project compiles without local IDE dependencies
 
 **Status:** [View all workflow runs →](https://github.com/Oratile122/MealMate/actions)
 
@@ -91,7 +96,7 @@ All steps run on GitHub's clean Ubuntu machines — not on the developer's compu
 
 ---
 
-##  Unit Tests
+## 🧪 Unit Tests
 
 The project includes **10 unit tests** covering:
 

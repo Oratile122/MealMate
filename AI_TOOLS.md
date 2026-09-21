@@ -2,8 +2,8 @@
 
 **Module:** OPSC6312POE
 **Part:** Part 2 — App Prototype Development
-**Group Members:** Oratile Morudi, Mbalenhle Mngomezulu, Busisiwe nyembe
-**17:** September 2025
+**Group Members:** Oratile Morudi, Mbalenhle Mngomezulu, Busisiwe Nyembe
+**Date:** 17 September 2025
 
 ---
 
@@ -29,10 +29,10 @@ We declare that the code, design, and documentation submitted in this portfolio 
 
 **How it was NOT used:**
 
--  No code was copied directly from AI output into the final submission
--  No AI tool was asked to write complete features, Activities, or modules
--  AI was not used to design the app's architecture, database schema, or UI
-- AI was not used to generate any final submitted file
+- ❌ No code was copied directly from AI output into the final submission
+- ❌ No AI tool was asked to write complete features, Activities, or modules
+- ❌ AI was not used to design the app's architecture, database schema, or UI
+- ❌ AI was not used to generate any final submitted file
 
 ### Google Search / Stack Overflow
 
@@ -70,10 +70,10 @@ Every concept, fix, or solution suggested by AI was:
 ## Team Contribution
 
 | Member | Role | AI Usage |
-|------|------|----------|
+|--------|------|----------|
 | **Oratile Morudi** | Lead Developer | Used AI for conceptual learning and debugging support during Android development |
 | **Mbalenhle Mngomezulu** | UI/UX Assistant | Did not use AI tools |
-| **Busisiwe nyembe** | Documentation & Testing | Did not use AI tools |
+| **Busisiwe Nyembe** | Documentation & Testing | Did not use AI tools |
 
 ---
 
@@ -89,14 +89,14 @@ Every concept, fix, or solution suggested by AI was:
 
 ## AI Tools NOT Used For
 
--  Writing the Kotlin source code
--  Designing the UI or the 8 screens
--  Creating the database schema or Room entities
--  Writing the README content
--  Recording or editing the demo video
+- ❌ Writing the Kotlin source code
+- ❌ Designing the UI or the 8 screens
+- ❌ Creating the database schema or Room entities
+- ❌ Writing the README content
+- ❌ Recording or editing the demo video
 
 ---
 
-**Signed:** Oratile Morudi, Mbalenhle Mngomezulu, Busisiwe nyembe
+**Signed:** Oratile Morudi, Mbalenhle Mngomezulu, Busisiwe Nyembe
 
-**17:** September 2025
+**Date:** 17 September 2025
