@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Settings/Profile screen layout - shows user info and preferences -->
+<!-- Contains: profile header, preferences (budget, dietary, language), account options -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +13,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Header -->
+        <!-- ===== HEADER WITH BACK BUTTON ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,6 +21,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp">
 
+            <!-- Back arrow -->
             <TextView
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
@@ -30,6 +33,7 @@
                 android:clickable="true"
                 android:focusable="true" />
 
+            <!-- Screen title -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -42,7 +46,7 @@
 
         </LinearLayout>
 
-        <!-- Profile Section -->
+        <!-- ===== PROFILE SECTION (avatar + name + email + badge) ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,12 +57,14 @@
             android:elevation="2dp"
             android:layout_marginBottom="16dp">
 
+            <!-- Profile picture circle -->
             <View
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/circle_background"
                 android:elevation="4dp" />
 
+            <!-- Display name (loaded from RoomDB) -->
             <TextView
                 android:id="@+id/tvDisplayName"
                 android:layout_width="wrap_content"
@@ -69,6 +75,7 @@
                 android:textColor="#333333"
                 android:layout_marginTop="8dp" />
 
+            <!-- User's email (loaded from RoomDB) -->
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
@@ -77,6 +84,7 @@
                 android:textColor="#78817F"
                 android:textSize="14sp" />
 
+            <!-- "Premium Member" badge -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,7 +100,7 @@
 
         </LinearLayout>
 
-        <!-- PREFERENCES -->
+        <!-- ===== PREFERENCES SECTION ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,6 +118,7 @@
             android:elevation="2dp"
             android:layout_marginBottom="16dp">
 
+            <!-- Budget row (static value) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,11 +144,13 @@
 
             </LinearLayout>
 
+            <!-- Divider line -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#E0E0E0" />
 
+            <!-- Dietary Preference row (spinner) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -156,6 +167,7 @@
                     android:textSize="14sp"
                     android:textColor="#333333" />
 
+                <!-- Dropdown for dietary preference -->
                 <Spinner
                     android:id="@+id/spinnerDietary"
                     android:layout_width="140dp"
@@ -169,6 +181,7 @@
                 android:layout_height="1dp"
                 android:background="#E0E0E0" />
 
+            <!-- Language row (spinner) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -185,6 +198,7 @@
                     android:textSize="14sp"
                     android:textColor="#333333" />
 
+                <!-- Dropdown for language selection -->
                 <Spinner
                     android:id="@+id/spinnerLanguage"
                     android:layout_width="140dp"
@@ -198,6 +212,7 @@
                 android:layout_height="1dp"
                 android:background="#E0E0E0" />
 
+            <!-- Notifications row (toggle switch) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -214,6 +229,7 @@
                     android:textSize="14sp"
                     android:textColor="#333333" />
 
+                <!-- Toggle for notifications on/off -->
                 <Switch
                     android:id="@+id/switchNotifications"
                     android:layout_width="wrap_content"
@@ -224,7 +240,7 @@
 
         </LinearLayout>
 
-        <!-- ACCOUNT -->
+        <!-- ===== ACCOUNT SECTION ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -242,6 +258,7 @@
             android:elevation="2dp"
             android:layout_marginBottom="24dp">
 
+            <!-- Edit Profile row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -272,6 +289,7 @@
 
                 </LinearLayout>
 
+                <!-- Right arrow icon -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -286,6 +304,7 @@
                 android:layout_height="1dp"
                 android:background="#E0E0E0" />
 
+            <!-- Privacy Policy row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -330,6 +349,7 @@
                 android:layout_height="1dp"
                 android:background="#E0E0E0" />
 
+            <!-- Help & Support row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -371,6 +391,7 @@
 
         </LinearLayout>
 
+        <!-- ===== SAVE CHANGES BUTTON (green) ===== -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
@@ -383,6 +404,7 @@
             android:backgroundTint="#19B957"
             android:layout_marginBottom="8dp" />
 
+        <!-- ===== LOGOUT BUTTON (red) ===== -->
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
@@ -395,6 +417,7 @@
             android:backgroundTint="#E53935"
             android:layout_marginBottom="8dp" />
 
+        <!-- ===== APP VERSION TEXT ===== -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Weekly Plan screen layout - shows the 5-day meal grid -->
+<!-- Contains: week selector, meal grid (breakfast/lunch/dinner rows), summary, add button -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+        <!-- ===== HEADER WITH BACK BUTTON ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +22,7 @@
             android:background="#FFFFFF"
             android:elevation="4dp">
 
+            <!-- Back arrow -->
             <TextView
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
@@ -31,6 +34,7 @@
                 android:clickable="true"
                 android:focusable="true" />
 
+            <!-- Screen title -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,7 +47,7 @@
 
         </LinearLayout>
 
-        <!-- Week Selector -->
+        <!-- ===== WEEK SELECTOR (with arrows) ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +58,7 @@
             android:layout_marginTop="8dp"
             android:elevation="2dp">
 
+            <!-- Left arrow (previous week - not implemented) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +67,7 @@
                 android:textColor="#19B957"
                 android:padding="8dp" />
 
-
+            <!-- Week label - updated dynamically (e.g. "Week 39 — September") -->
             <TextView
                 android:id="@+id/tvWeekLabel"
                 android:layout_width="0dp"
@@ -74,6 +79,7 @@
                 android:textColor="#333333"
                 android:gravity="center" />
 
+            <!-- Right arrow (next week - not implemented) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +90,7 @@
 
         </LinearLayout>
 
-
+        <!-- ===== DATE RANGE (Mon - Fri) - updated dynamically ===== -->
         <TextView
             android:id="@+id/tvWeekDates"
             android:layout_width="wrap_content"
@@ -96,7 +102,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp" />
 
-        <!-- Meal Grid -->
+        <!-- ===== MEAL GRID ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +113,7 @@
             android:layout_marginEnd="8dp"
             android:elevation="2dp">
 
-            <!-- Header Row -->
+            <!-- ===== GRID HEADER ROW (day names) ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,6 +121,7 @@
                 android:background="#E8F5E9"
                 android:padding="8dp">
 
+                <!-- Empty corner cell -->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -122,6 +129,7 @@
                     android:text=" "
                     android:textStyle="bold" />
 
+                <!-- Day headers -->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -174,7 +182,7 @@
 
             </LinearLayout>
 
-            <!-- Breakfast Row -->
+            <!-- ===== BREAKFAST ROW ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,6 +199,7 @@
                     android:textSize="11sp"
                     android:textStyle="bold" />
 
+                <!-- Monday - Avocado Toast -->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -200,6 +209,7 @@
                     android:textSize="10sp"
                     android:gravity="center" />
 
+                <!-- Tuesday - Greek Yogurt -->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -209,6 +219,7 @@
                     android:textSize="10sp"
                     android:gravity="center" />
 
+                <!-- Wednesday - "+" button (clickable) -->
                 <TextView
                     android:id="@+id/btnWedBreakfast"
                     android:layout_width="0dp"
@@ -221,6 +232,7 @@
                     android:clickable="true"
                     android:focusable="true" />
 
+                <!-- Thursday - Oat Porridge -->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -230,6 +242,7 @@
                     android:textSize="10sp"
                     android:gravity="center" />
 
+                <!-- Friday - "+" button -->
                 <TextView
                     android:id="@+id/btnFriBreakfast"
                     android:layout_width="0dp"
@@ -244,7 +257,7 @@
 
             </LinearLayout>
 
-            <!-- Lunch Row -->
+            <!-- ===== LUNCH ROW ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -314,7 +327,7 @@
 
             </LinearLayout>
 
-            <!-- Dinner Row -->
+            <!-- ===== DINNER ROW ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -389,7 +402,7 @@
 
         </LinearLayout>
 
-        <!-- Summary Section -->
+        <!-- ===== SUMMARY SECTION (total, meals planned, per day) ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -401,6 +414,7 @@
             android:background="#FFFFFF"
             android:elevation="2dp">
 
+            <!-- Total cost column -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -414,6 +428,7 @@
                     android:textSize="12sp"
                     android:textColor="#78817F" />
 
+                <!-- Total cost value - updated in code -->
                 <TextView
                     android:id="@+id/tvTotalCost"
                     android:layout_width="wrap_content"
@@ -425,6 +440,7 @@
 
             </LinearLayout>
 
+            <!-- Meals planned column -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -439,6 +455,7 @@
                     android:textSize="12sp"
                     android:textColor="#78817F" />
 
+                <!-- Meals count - updated in code -->
                 <TextView
                     android:id="@+id/tvMealsPlanned"
                     android:layout_width="wrap_content"
@@ -450,6 +467,7 @@
 
             </LinearLayout>
 
+            <!-- Per day average column -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -464,6 +482,7 @@
                     android:textSize="12sp"
                     android:textColor="#78817F" />
 
+                <!-- Per day value - updated in code -->
                 <TextView
                     android:id="@+id/tvPerDayAvg"
                     android:layout_width="wrap_content"
@@ -477,7 +496,7 @@
 
         </LinearLayout>
 
-        <!-- Add Meal Button -->
+        <!-- ===== ADD MEAL BUTTON ===== -->
         <Button
             android:id="@+id/btnAddMeal"
             android:layout_width="match_parent"
@@ -490,6 +509,7 @@
             android:textStyle="bold"
             android:backgroundTint="#19B957" />
 
+        <!-- ===== HINT TEXT AT BOTTOM ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

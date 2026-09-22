@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Login screen layout - user authentication -->
+<!-- Contains: email/password fields, login button, Google sign-in, register link -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -15,7 +17,7 @@
         android:paddingEnd="28dp"
         android:paddingBottom="40dp">
 
-        <!-- Logo Row -->
+        <!-- ===== LOGO ROW (Icon + App name) ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +26,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp">
 
+            <!-- Fork icon in circular background -->
             <TextView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -33,6 +36,7 @@
                 android:textColor="#FFFFFF"
                 android:background="@drawable/bg_splash_logo" />
 
+            <!-- App name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +48,7 @@
 
         </LinearLayout>
 
-        <!-- Tagline -->
+        <!-- ===== TAGLINE ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +57,7 @@
             android:textSize="12sp"
             android:layout_marginBottom="38dp" />
 
-        <!-- Welcome -->
+        <!-- ===== WELCOME TEXT ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +67,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="5dp" />
 
+        <!-- Subtitle under welcome -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +76,7 @@
             android:textSize="13sp"
             android:layout_marginBottom="30dp" />
 
-        <!-- Email Label -->
+        <!-- ===== EMAIL INPUT ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,6 +86,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="7dp" />
 
+        <!-- Outlined email text field -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,7 +109,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Password Label -->
+        <!-- ===== PASSWORD LABEL + FORGOT LINK ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,6 +125,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
+            <!-- Forgot password link -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,6 +135,8 @@
 
         </LinearLayout>
 
+        <!-- ===== PASSWORD INPUT ===== -->
+        <!-- endIconMode="password_toggle" adds the show/hide eye icon -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,7 +160,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Login Button -->
+        <!-- ===== LOGIN BUTTON ===== -->
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
@@ -164,7 +173,7 @@
             android:backgroundTint="#19B957"
             android:layout_marginBottom="22dp" />
 
-        <!-- Divider -->
+        <!-- ===== DIVIDER ("or continue with") ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -172,12 +181,14 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="18dp">
 
+            <!-- Left line -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"
                 android:background="#DCE3E0" />
 
+            <!-- Middle text -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,6 +196,7 @@
                 android:textColor="#929B98"
                 android:textSize="11sp" />
 
+            <!-- Right line -->
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -193,7 +205,7 @@
 
         </LinearLayout>
 
-        <!-- Google Button -->
+        <!-- ===== GOOGLE SIGN-IN BUTTON ===== -->
         <Button
             android:id="@+id/btnGoogleSignIn"
             android:layout_width="match_parent"
@@ -206,7 +218,7 @@
             android:backgroundTint="#FFFFFF"
             android:layout_marginBottom="35dp" />
 
-        <!-- Register Link -->
+        <!-- ===== REGISTER LINK ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -221,6 +233,7 @@
                 android:textColor="#78817F"
                 android:textSize="12sp" />
 
+            <!-- Click to open Register screen -->
             <TextView
                 android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"

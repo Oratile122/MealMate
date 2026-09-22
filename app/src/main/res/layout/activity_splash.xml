@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Splash Screen layout - first screen shown when app opens -->
+<!-- Displays logo, app name, tagline, and loading progress -->
+<!-- Auto-navigates to Login screen after 2 seconds -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,7 +9,8 @@
     android:gravity="center"
     android:background="#FFFFFF">
 
-    <!-- Logo Circle -->
+    <!-- ===== LOGO CIRCLE ===== -->
+    <!-- Fork icon inside a circular green background -->
     <TextView
         android:layout_width="120dp"
         android:layout_height="120dp"
@@ -16,7 +20,7 @@
         android:background="@drawable/bg_splash_logo"
         android:elevation="8dp" />
 
-    <!-- App Name -->
+    <!-- ===== APP NAME ===== -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +30,7 @@
         android:textSize="34sp"
         android:textStyle="bold" />
 
-    <!-- Tagline -->
+    <!-- ===== TAGLINE (P L A N · E A T · S A V E) ===== -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +40,7 @@
         android:textSize="11sp"
         android:letterSpacing="0.15" />
 
-    <!-- Subtitle -->
+    <!-- ===== SUBTITLE ===== -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,12 +49,13 @@
         android:textColor="#7AAE71"
         android:textSize="12sp" />
 
-    <!-- Space -->
+    <!-- ===== SPACER ===== -->
+    <!-- Pushes the loading section down -->
     <View
         android:layout_width="match_parent"
         android:layout_height="60dp" />
 
-    <!-- READY text -->
+    <!-- ===== "READY!" LABEL ===== -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,7 +64,8 @@
         android:textSize="10sp"
         android:letterSpacing="0.15" />
 
-    <!-- Progress Bar -->
+    <!-- ===== PROGRESS BAR ===== -->
+    <!-- Custom drawable used for the green progress style -->
     <ProgressBar
         android:layout_width="220dp"
         android:layout_height="6dp"
@@ -69,7 +75,7 @@
         android:progress="100"
         android:progressDrawable="@drawable/bg_splash_progress" />
 
-    <!-- Percentage -->
+    <!-- ===== PERCENTAGE TEXT ===== -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Home screen layout - main dashboard of MealMate -->
+<!-- Shows: greeting, date, budget card, today's meals, nutrition summary -->
+<!-- Uses a ScrollView for content + fixed bottom navigation bar -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,7 +9,7 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- SCROLLABLE CONTENT -->
+    <!-- ===== SCROLLABLE CONTENT ===== -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -18,7 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Header -->
+            <!-- ===== HEADER WITH DATE AND GREETING ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,7 +36,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <!-- ✅ Date now has an ID -->
+                    <!-- Current date (updated dynamically in HomeActivity) -->
                     <TextView
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
@@ -42,6 +45,7 @@
                         android:textSize="12sp"
                         android:textColor="#78817F" />
 
+                    <!-- Welcome greeting with user's name -->
                     <TextView
                         android:id="@+id/tvWelcome"
                         android:layout_width="wrap_content"
@@ -53,6 +57,7 @@
 
                 </LinearLayout>
 
+                <!-- Profile icon in circle -->
                 <TextView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -63,7 +68,7 @@
 
             </LinearLayout>
 
-            <!-- Weekly Budget Card -->
+            <!-- ===== WEEKLY BUDGET CARD ===== -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,6 +83,7 @@
                     android:padding="16dp"
                     android:background="#19B957">
 
+                    <!-- Card label -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,6 +92,7 @@
                         android:textSize="12sp"
                         android:letterSpacing="0.1" />
 
+                    <!-- Budget amount and spent percentage -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -112,6 +119,7 @@
 
                     </LinearLayout>
 
+                    <!-- Progress bar showing budget usage (0-100) -->
                     <ProgressBar
                         android:id="@+id/progressBudget"
                         android:layout_width="match_parent"
@@ -123,6 +131,7 @@
                         android:progressTint="#FFFFFF"
                         android:progressBackgroundTint="#80FFFFFF" />
 
+                    <!-- Amount left and days left -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -150,7 +159,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Today's Meals Header -->
+            <!-- ===== TODAY'S MEALS HEADER ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,6 +177,7 @@
                     android:textStyle="bold"
                     android:textColor="#333333" />
 
+                <!-- Edit plan link -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,7 +187,7 @@
 
             </LinearLayout>
 
-            <!-- Breakfast Card -->
+            <!-- ===== BREAKFAST CARD ===== -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,6 +204,7 @@
                     android:padding="12dp"
                     android:gravity="center_vertical">
 
+                    <!-- Meal name on the left -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -207,6 +218,7 @@
                             android:textSize="11sp"
                             android:textColor="#78817F" />
 
+                        <!-- Breakfast meal name (updated from DB) -->
                         <TextView
                             android:id="@+id/tvBreakfastName"
                             android:layout_width="wrap_content"
@@ -218,6 +230,7 @@
 
                     </LinearLayout>
 
+                    <!-- Cost and calories on the right -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -246,7 +259,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Lunch Card -->
+            <!-- ===== LUNCH CARD ===== -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -276,6 +289,7 @@
                             android:textSize="11sp"
                             android:textColor="#78817F" />
 
+                        <!-- Lunch meal name (updated from DB) -->
                         <TextView
                             android:id="@+id/tvLunchName"
                             android:layout_width="wrap_content"
@@ -315,7 +329,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Dinner Card -->
+            <!-- ===== DINNER CARD ===== -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -345,6 +359,7 @@
                             android:textSize="11sp"
                             android:textColor="#78817F" />
 
+                        <!-- Dinner meal name (updated from DB) -->
                         <TextView
                             android:id="@+id/tvDinnerName"
                             android:layout_width="wrap_content"
@@ -384,7 +399,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Nutrition Summary -->
+            <!-- ===== NUTRITION SUMMARY CARD ===== -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -413,6 +428,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <!-- Calories column -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -438,6 +454,7 @@
 
                         </LinearLayout>
 
+                        <!-- Protein column -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -463,6 +480,7 @@
 
                         </LinearLayout>
 
+                        <!-- Carbs column -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -501,7 +519,8 @@
         </LinearLayout>
     </ScrollView>
 
-
+    <!-- ===== BOTTOM NAVIGATION BAR (FIXED) ===== -->
+    <!-- Stays visible while content scrolls above -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -510,6 +529,7 @@
         android:elevation="8dp"
         android:padding="8dp">
 
+        <!-- Home tab (currently active - green text) -->
         <TextView
             android:id="@+id/btnHome"
             android:layout_width="0dp"
@@ -523,6 +543,7 @@
             android:clickable="true"
             android:focusable="true" />
 
+        <!-- Planner tab -->
         <TextView
             android:id="@+id/btnPlan"
             android:layout_width="0dp"
@@ -536,6 +557,7 @@
             android:clickable="true"
             android:focusable="true" />
 
+        <!-- Shop tab -->
         <TextView
             android:id="@+id/btnShopping"
             android:layout_width="0dp"
@@ -549,6 +571,7 @@
             android:clickable="true"
             android:focusable="true" />
 
+        <!-- Profile tab -->
         <TextView
             android:id="@+id/btnProfile"
             android:layout_width="0dp"

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Create Meal screen layout - form to add a new meal -->
+<!-- Includes: meal name, category dropdown, ingredients, cost, and calories -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,7 +14,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Header -->
+        <!-- ===== HEADER WITH BACK BUTTON ===== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +22,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="16dp">
 
+            <!-- Back arrow - closes the screen -->
             <TextView
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
@@ -31,6 +34,7 @@
                 android:clickable="true"
                 android:focusable="true" />
 
+            <!-- Screen title -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,6 +47,7 @@
 
         </LinearLayout>
 
+        <!-- Subtitle line 1 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,6 +56,7 @@
             android:textSize="13sp"
             android:layout_marginBottom="4dp" />
 
+        <!-- Subtitle line 2 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +65,7 @@
             android:textSize="12sp"
             android:layout_marginBottom="20dp" />
 
-        <!-- MEAL NAME -->
+        <!-- ===== MEAL NAME INPUT ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,6 +75,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="7dp" />
 
+        <!-- Outlined text field for meal name -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +97,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- CATEGORY -->
+        <!-- ===== CATEGORY DROPDOWN ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,6 +107,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="7dp" />
 
+        <!-- Spinner for meal category (Breakfast/Lunch/Dinner/Snack) -->
         <Spinner
             android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
@@ -107,7 +115,7 @@
             android:background="@android:drawable/btn_dropdown"
             android:layout_marginBottom="16dp" />
 
-        <!-- INGREDIENTS -->
+        <!-- ===== INGREDIENTS INPUT ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,6 +125,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="7dp" />
 
+        <!-- Multi-line text area for ingredients -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,7 +149,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- COST -->
+        <!-- ===== COST INPUT ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -150,6 +159,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="7dp" />
 
+        <!-- Cost input field (accepts decimal numbers) -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -172,7 +182,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- CALORIES -->
+        <!-- ===== CALORIES INPUT ===== -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -182,6 +192,7 @@
             android:textStyle="bold"
             android:layout_marginBottom="7dp" />
 
+        <!-- Calories input field (accepts whole numbers) -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -204,6 +215,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Tip text at the bottom -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -212,7 +224,7 @@
             android:textSize="11sp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Save Button -->
+        <!-- ===== SAVE BUTTON ===== -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
