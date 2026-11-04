@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- ✅ ADD THIS -->
 
     <application
         android:allowBackup="true"
@@ -10,6 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
+        android:configChanges="locale|layoutDirection"
         android:theme="@style/Theme.MealMate">
 
         <activity
@@ -29,6 +31,20 @@
         <activity android:name=".CreateMealActivity" android:exported="false" />
         <activity android:name=".ShoppingListActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false" />
+
+        <!-- FCM Service for Push Notifications -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- FCM Default Notification Channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="mealmate_notifications" />
 
     </application>
 

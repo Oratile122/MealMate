@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.database.AppDatabase
 import com.example.mealmate.database.ShoppingItemEntity
@@ -19,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ShoppingListActivity : AppCompatActivity() {
+class ShoppingListActivity : BaseActivity() {
 
     // Tag for Logcat logging
     private val TAG = "ShoppingListActivity"

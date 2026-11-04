@@ -1,59 +1,73 @@
 package com.example.mealmate
 
 // LoginActivity - handles user login
-// Checks RoomDB first (offline), then falls back to REST API (online)
+// Uses Firebase Authentication for email/password AND Google SSO
 
-import android.content.Context
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.mealmate.api.LoginRequest
-import com.example.mealmate.api.RetrofitClient
-import com.example.mealmate.database.AppDatabase
-import com.example.mealmate.database.UserEntity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
-    // Tag for Logcat logging
     private val TAG = "LoginActivity"
+    private lateinit var authManager: FirebaseAuthManager
 
-    // Database and preferences references
-    private lateinit var db: AppDatabase
-    private lateinit var prefs: SharedPreferences
+    // Request code for Google Sign-In result
+    private val RC_SIGN_IN = 9001
+    // Request code for Notification Permission
+    private val RC_NOTIFICATION_PERM = 101
 
-    // Called when screen is created
+    // UI views
+    private lateinit var etEmail: TextInputEditText
+    private lateinit var etPassword: TextInputEditText
+    private lateinit var btnLogin: Button
+    private lateinit var btnGoogleSignIn: Button
+    private lateinit var tvRegister: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Get database and preferences instances
-        db = AppDatabase.getInstance(this)
-        prefs = getSharedPreferences("MealMatePrefs", Context.MODE_PRIVATE)
+        // 🚨 ASK FOR NOTIFICATION PERMISSION (Android 13+)
+        askNotificationPermission()
 
-        // Link UI variables to XML views
-        val etEmail: TextInputEditText = findViewById(R.id.etEmail)
-        val etPassword: TextInputEditText = findViewById(R.id.etPassword)
-        val btnLogin: Button = findViewById(R.id.btnLogin)
-        val btnGoogleSignIn: Button = findViewById(R.id.btnGoogleSignIn)
-        val tvRegister: TextView = findViewById(R.id.tvRegister)
+        // Initialize Firebase Auth manager
+        authManager = FirebaseAuthManager(this)
+
+        // If user is already logged in, skip to Home
+        if (authManager.isLoggedIn()) {
+            navigateToHome()
+            return
+        }
+
+        // Link UI views
+        etEmail = findViewById(R.id.etEmail)
+        etPassword = findViewById(R.id.etPassword)
+        btnLogin = findViewById(R.id.btnLogin)
+        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn)
+        tvRegister = findViewById(R.id.tvRegister)
 
         // Login button clicked
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString()
 
-            // Validate input fields
             when {
                 email.isEmpty() -> {
                     etEmail.error = "Please enter your email"
@@ -67,180 +81,118 @@ class LoginActivity : AppCompatActivity() {
                     etPassword.error = "Please enter your password"
                     etPassword.requestFocus()
                 }
-                else -> {
-                    // Input is valid, attempt login
-                    loginUser(email, password, btnLogin)
-                }
+                else -> loginWithEmail(email, password)
             }
         }
 
-        // Google sign-in (not implemented yet)
+        // Google Sign-In button clicked
         btnGoogleSignIn.setOnClickListener {
-            Toast.makeText(this, "Google Sign-In coming soon!", Toast.LENGTH_SHORT).show()
+            startGoogleSignIn()
         }
 
-        // Register link - open RegisterActivity
+        // Register link clicked
         tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
-    // Handles user login - checks RoomDB first, then API
-    private fun loginUser(email: String, password: String, button: Button) {
-        button.isEnabled = false
-        button.text = "Logging in..."
+    // Checks and requests notification permission for Android 13+
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED) {
 
-        lifecycleScope.launch {
-            // STEP 1: Check RoomDB for user (offline login)
-            val localUser = withContext(Dispatchers.IO) {
-                db.userDao().getUserByEmail(email)
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    RC_NOTIFICATION_PERM
+                )
             }
+        }
+    }
 
-            if (localUser != null) {
-                // User exists in RoomDB - verify password
-                if (localUser.password == password) {
-                    // Mark this user as logged in
-                    withContext(Dispatchers.IO) {
-                        db.userDao().logoutAllUsers()
-                        db.userDao().updateUser(localUser.copy(isLoggedIn = true))
-                    }
-                    Log.d(TAG, "User logged in via RoomDB: $email")
+    // Logs in with Firebase email/password
+    private fun loginWithEmail(email: String, password: String) {
+        btnLogin.isEnabled = false
+        btnLogin.text = "Logging in..."
 
-                    // Save session to SharedPreferences
-                    prefs.edit()
-                        .putString("email", localUser.email)
-                        .putString("displayName", localUser.displayName)
-                        .apply()
-                    Log.d(TAG, "Saved to prefs: email='${localUser.email}', name='${localUser.displayName}'")
+        authManager.login(email, password) { success, error ->
+            runOnUiThread {
+                btnLogin.isEnabled = true
+                btnLogin.text = getString(R.string.login_button)
 
-                    // Sync with API in background (doesn't block login)
-                    trySyncWithApi(email, password)
-
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Login successful!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    navigateToHome(localUser.copy(isLoggedIn = true))
+                if (success) {
+                    Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                    navigateToHome()
                 } else {
-                    // Wrong password
-                    button.isEnabled = true
-                    button.text = getString(R.string.login_button)
-                    Toast.makeText(this@LoginActivity, "Incorrect password", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, error ?: "Login failed", Toast.LENGTH_LONG).show()
                 }
-                return@launch
             }
+        }
+    }
 
-            // STEP 2: Not in RoomDB - try REST API (online login)
-            val request = LoginRequest(email, password)
-            RetrofitClient.apiService.login(request).enqueue(
-                object : retrofit2.Callback<com.example.mealmate.api.AuthResponse> {
-                    override fun onResponse(
-                        call: retrofit2.Call<com.example.mealmate.api.AuthResponse>,
-                        response: retrofit2.Response<com.example.mealmate.api.AuthResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            // API login successful
-                            val authResponse = response.body()
-                            val displayName = authResponse?.fullName ?: email.substringBefore("@")
+    // Launches the Google Sign-In picker
+    private fun startGoogleSignIn() {
+        val signInIntent = authManager.getGoogleSignInIntent()
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
 
-                            // Create user entity to save in RoomDB
-                            val user = UserEntity(
-                                email = email,
-                                displayName = displayName,
-                                password = password,
-                                budget = 500.0,
-                                dietaryPreference = "None",
-                                language = "English",
-                                notifications = true,
-                                isLoggedIn = true
-                            )
+    // Handles the result from the Google Sign-In picker
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-                            lifecycleScope.launch {
-                                // Save user to RoomDB for future offline login
-                                withContext(Dispatchers.IO) {
-                                    db.userDao().logoutAllUsers()
-                                    db.userDao().insertUser(user)
-                                }
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                val idToken = account.idToken
 
-                                // Save session to SharedPreferences
-                                prefs.edit()
-                                    .putString("email", user.email)
-                                    .putString("displayName", user.displayName)
-                                    .apply()
-                                Log.d(TAG, "Saved to prefs (API): email='${user.email}', name='${user.displayName}'")
-
-                                Toast.makeText(
-                                    this@LoginActivity,
-                                    "Login successful!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                navigateToHome(user)
+                if (idToken != null) {
+                    authManager.signInWithGoogle(idToken) { success, error ->
+                        runOnUiThread {
+                            if (success) {
+                                Toast.makeText(this, "Google sign-in successful!", Toast.LENGTH_SHORT).show()
+                                navigateToHome()
+                            } else {
+                                Toast.makeText(this, error ?: "Google sign-in failed", Toast.LENGTH_LONG).show()
                             }
-                        } else {
-                            // API returned error (wrong credentials)
-                            button.isEnabled = true
-                            button.text = getString(R.string.login_button)
-                            Toast.makeText(
-                                this@LoginActivity,
-                                "Incorrect email or password",
-                                Toast.LENGTH_LONG
-                            ).show()
                         }
                     }
-
-                    override fun onFailure(
-                        call: retrofit2.Call<com.example.mealmate.api.AuthResponse>,
-                        t: Throwable
-                    ) {
-                        // API unreachable (no internet or server down)
-                        button.isEnabled = true
-                        button.text = getString(R.string.login_button)
-                        Log.e(TAG, "API error: ${t.message}")
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "No account found. Please register first.",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                } else {
+                    Toast.makeText(this, "Google sign-in failed: No ID token", Toast.LENGTH_LONG).show()
                 }
-            )
+            } catch (e: ApiException) {
+                Log.e(TAG, "Google sign-in error: ${e.message}")
+                Toast.makeText(this, "Google sign-in failed: ${e.message}", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
-    // Silently syncs login with API (used after offline login succeeds)
-    private fun trySyncWithApi(email: String, password: String) {
-        try {
-            val request = LoginRequest(email, password)
-            RetrofitClient.apiService.login(request).enqueue(
-                object : retrofit2.Callback<com.example.mealmate.api.AuthResponse> {
-                    override fun onResponse(
-                        call: retrofit2.Call<com.example.mealmate.api.AuthResponse>,
-                        response: retrofit2.Response<com.example.mealmate.api.AuthResponse>
-                    ) {
-                        Log.d(TAG, "Background sync status: ${response.code()}")
-                    }
+    // Navigates to Home screen and closes Login
+    private fun navigateToHome() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val token = task.result
+                    val db = FirebaseFirestore.getInstance()
 
-                    override fun onFailure(
-                        call: retrofit2.Call<com.example.mealmate.api.AuthResponse>,
-                        t: Throwable
-                    ) {
-                        // Offline mode is fine - just log it
-                        Log.d(TAG, "Background sync failed (offline): ${t.message}")
-                    }
+                    db.collection("users").document(currentUser.uid)
+                        .update("fcmToken", token)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "FCM Token successfully saved to Firestore: $token")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(TAG, "Failed to save FCM Token", e)
+                        }
+                } else {
+                    Log.e(TAG, "Fetching FCM registration token failed", task.exception)
                 }
-            )
-        } catch (e: Exception) {
-            Log.e(TAG, "Sync exception: ${e.message}")
+            }
         }
-    }
 
-    // Opens the Home screen with user data
-    private fun navigateToHome(user: UserEntity) {
         val intent = Intent(this, HomeActivity::class.java)
-        intent.putExtra("USER_EMAIL", user.email)
-        intent.putExtra("USER_NAME", user.displayName)
         startActivity(intent)
-        finish()   // Close login so back button doesn't return here
+        finish()
     }
 }

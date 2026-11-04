@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MealMate</string>
+
+    <!-- Login -->
+    <string name="login_welcome">Welkom terug!</string>
+    <string name="login_subtitle">Teken in om jou maaltye te beplan</string>
+    <string name="login_email_label">E-posadres</string>
+    <string name="login_password_label">Wagwoord</string>
+    <string name="login_button">Teken in</string>
+    <string name="login_google">Teken in met Google</string>
+    <string name="login_register_link">Skep \'n rekening</string>
+
+    <!-- Register -->
+    <string name="register_title">Skep jou rekening</string>
+    <string name="register_name_label">Volle naam</string>
+    <string name="register_email_label">E-posadres</string>
+    <string name="register_password_label">Wagwoord</string>
+    <string name="register_confirm_label">Bevestig wagwoord</string>
+    <string name="register_button">Skep rekening</string>
+
+    <!-- Home -->
+    <string name="home_today_meals">Vandag se Maaltye</string>
+    <string name="home_budget_label">WEEKLIKSE BEGROTING</string>
+    <string name="home_nutrition_title">Vandag se Voeding</string>
+
+    <!-- Nav -->
+    <string name="nav_home">🏠 Tuis</string>
+    <string name="nav_planner">📅 Beplanner</string>
+    <string name="nav_shop">🛒 Winkel</string>
+    <string name="nav_profile">👤 Profiel</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Profiel</string>
+    <string name="settings_premium">Premium-lid</string>
+    <string name="settings_preferences">VOORKEURE</string>
+    <string name="settings_budget">Begroting</string>
+    <string name="settings_dietary">Dieetvoorkeur</string>
+    <string name="settings_language">Taal</string>
+    <string name="settings_notifications">Kennisgewings</string>
+    <string name="settings_account">REKENING</string>
+    <string name="settings_edit_profile">Wysig Profiel</string>
+    <string name="settings_privacy">Privaatheidsbeleid</string>
+    <string name="settings_help">Hulp en Ondersteuning</string>
+    <string name="settings_save">Stoor Veranderinge</string>
+    <string name="settings_logout">Teken Uit</string>
+
+    <!-- Weekly Plan -->
+    <string name="weekly_title">Weeklikse Plan</string>
+    <string name="weekly_add_meal">+ Voeg Maaltyd By</string>
+    <string name="weekly_week">Week</string>
+    <string name="weekly_total_cost">Totale Koste</string>
+    <string name="weekly_meals_planned">Maaltye Beplan</string>
+    <string name="weekly_per_day">Gemiddeld per dag</string>
+    <string name="weekly_breakfast">Ontbyt</string>
+    <string name="weekly_lunch">Middagete</string>
+    <string name="weekly_dinner">Aandete</string>
+    <string name="weekly_back">←</string>
+
+    <!-- Create Meal -->
+    <string name="create_meal_title">Voeg Nuwe Maaltyd By</string>
+    <string name="create_meal_subtitle">Teken jou maaltyd aan</string>
+    <string name="create_meal_subtitle2">Volg voeding en besteding</string>
+    <string name="create_meal_name_label">MAALTYD NAAM</string>
+    <string name="create_meal_name_hint">bv. Hoender Caesar Slaai</string>
+    <string name="create_meal_category_label">KATEGORIE</string>
+    <string name="create_meal_category_default">Kies \'n kategorie</string>
+    <string name="create_meal_ingredients_label">BESTANDDELE</string>
+    <string name="create_meal_ingredients_hint">bv. Romaine blaarslaai, gegrilde hoender...</string>
+    <string name="create_meal_cost_label">KOSTE (R)</string>
+    <string name="create_meal_cost_hint">R 0.00</string>
+    <string name="create_meal_cal_label">KALORIEË</string>
+    <string name="create_meal_cal_hint">kcal</string>
+    <string name="create_meal_tip">Wenk: Voeg kalorieë by vanaf die verpakking of gebruik die Voedingsfeite-tabel.</string>
+    <string name="create_meal_save">Stoor Maaltyd</string>
+</resources>

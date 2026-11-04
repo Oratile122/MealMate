@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,6 +42,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 }
 
 dependencies {
+    // ===== AndroidX Core =====
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.activity:activity-ktx:1.8.0")
@@ -48,20 +50,38 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.cardview:cardview:1.0.0")
 
-    //  Room Database (Offline)
+    // ===== Room Database (Offline) =====
     implementation("androidx.room:room-runtime:2.6.0")
     implementation("androidx.room:room-ktx:2.6.0")
-
     add("ksp", "androidx.room:room-compiler:2.6.0")
 
-    //  Retrofit (REST API - Online)
+    // ===== Retrofit (REST API - Online) =====
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
+    // ===== Coroutines =====
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
-    // Testing
+    // ===== Firebase BoM =====
+    implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
+
+    // ===== Firebase Authentication (for SSO + Email/Password) =====
+    implementation("com.google.firebase:firebase-auth")   // ✅ Removed -ktx
+
+    // ===== Firebase Firestore (NoSQL database) =====
+    implementation("com.google.firebase:firebase-firestore")   // ✅ Removed -ktx
+
+    // ===== Firebase Cloud Messaging (for Push Notifications) =====
+    implementation("com.google.firebase:firebase-messaging")   // ✅ Removed -ktx
+
+    // ===== Firebase Storage (for blob storage) =====
+    implementation("com.google.firebase:firebase-storage")   // ✅ Removed -ktx
+
+    // ===== Google Play Services (for Google Sign-In) =====
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    // ===== Testing =====
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

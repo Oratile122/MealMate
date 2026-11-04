@@ -1,16 +1,14 @@
 package com.example.mealmate
 
-// WeeklyPlanActivity - shows the weekly meal plan screen
-// Displays current week number and dates, plus a summary of planned meals
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
@@ -18,136 +16,132 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
-class WeeklyPlanActivity : AppCompatActivity() {
+class WeeklyPlanActivity : BaseActivity() {
 
-    // Tag for Logcat logging
     private val TAG = "WeeklyPlanActivity"
-
-    // Database and preferences references
     private lateinit var db: AppDatabase
     private lateinit var prefs: SharedPreferences
 
-    // Called when screen is created
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 🚨 FORCE LANGUAGE UPDATE ON THIS SCREEN 🚨
+        prefs = getSharedPreferences("MealMatePrefs", Context.MODE_PRIVATE)
+        val langCode = prefs.getString("app_language", "en") ?: "en"
+        val locale = Locale(langCode)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
         setContentView(R.layout.activity_weekly_plan)
 
-        // Get database and preferences instances
         db = AppDatabase.getInstance(this)
-        prefs = getSharedPreferences("MealMatePrefs", Context.MODE_PRIVATE)
 
-        // Back and Add Meal buttons
         val btnBack = findViewById<TextView>(R.id.btnBack)
         val btnAddMeal = findViewById<Button>(R.id.btnAddMeal)
 
-        // Back button closes this screen
         btnBack.setOnClickListener { finish() }
-
-        // Add Meal button opens CreateMealActivity
         btnAddMeal.setOnClickListener {
             startActivity(Intent(this, CreateMealActivity::class.java))
         }
 
-        // Show the current week and dates
-        setCurrentWeekInfo()
+        setupCurrentWeek()
     }
 
-    // Refresh summary when returning to this screen
     override fun onResume() {
         super.onResume()
         if (::db.isInitialized) {
-            loadSummary()
+            loadMealsForGrid()
         }
     }
 
-    // Sets the week label and date range based on today's date
-    // Example: "Week 39 — September" and "Sep 22 – Sep 26, 2026"
-    private fun setCurrentWeekInfo() {
-        val tvWeekLabel = findViewById<TextView>(R.id.tvWeekLabel)
-        val tvWeekDates = findViewById<TextView>(R.id.tvWeekDates)
-
-        // Get today's date
+    private fun setupCurrentWeek() {
         val calendar = Calendar.getInstance()
-        val today = calendar.time
 
-        // Get week number of the year (1-52)
-        val weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR)
+        // Set to Monday of this week
+        calendar.firstDayOfWeek = Calendar.MONDAY
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
 
-        // Get current month name (e.g. "September")
-        val monthFormat = SimpleDateFormat("MMMM", Locale.ENGLISH)
-        val monthName = monthFormat.format(today)
-
-        // Get this week's Monday
-        val mondayCal = calendar.clone() as Calendar
-        mondayCal.firstDayOfWeek = Calendar.MONDAY
-        mondayCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-
-        // Get this week's Friday
-        val fridayCal = calendar.clone() as Calendar
-        fridayCal.firstDayOfWeek = Calendar.MONDAY
-        fridayCal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-
-        // Format dates
         val dateFormat = SimpleDateFormat("MMM d", Locale.ENGLISH)
-        val yearFormat = SimpleDateFormat("yyyy", Locale.ENGLISH)
 
-        val mondayText = dateFormat.format(mondayCal.time)
-        val fridayText = dateFormat.format(fridayCal.time)
-        val yearText = yearFormat.format(today)
+        // Calculate dates for Mon-Fri
+        val monday = calendar.time
+        calendar.add(Calendar.DAY_OF_WEEK, 1)
+        val tuesday = calendar.time
+        calendar.add(Calendar.DAY_OF_WEEK, 1)
+        val wednesday = calendar.time
+        calendar.add(Calendar.DAY_OF_WEEK, 1)
+        val thursday = calendar.time
+        calendar.add(Calendar.DAY_OF_WEEK, 1)
+        val friday = calendar.time
 
-        // Update week label: "Week 39 — September"
-        tvWeekLabel.text = "Week $weekOfYear — $monthName"
+        // Update header texts
+        findViewById<TextView>(R.id.tvHeaderMon).text = "MON\n${dateFormat.format(monday).split(" ")[1]}"
+        findViewById<TextView>(R.id.tvHeaderTue).text = "TUE\n${dateFormat.format(tuesday).split(" ")[1]}"
+        findViewById<TextView>(R.id.tvHeaderWed).text = "WED\n${dateFormat.format(wednesday).split(" ")[1]}"
+        findViewById<TextView>(R.id.tvHeaderThu).text = "THU\n${dateFormat.format(thursday).split(" ")[1]}"
+        findViewById<TextView>(R.id.tvHeaderFri).text = "FRI\n${dateFormat.format(friday).split(" ")[1]}"
 
-        // Update date range: "Sep 22 – Sep 26, 2026"
-        tvWeekDates.text = "$mondayText – $fridayText, $yearText"
+        // Update week label and date range
+        val weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
+        val monthName = SimpleDateFormat("MMMM", Locale.ENGLISH).format(monday)
 
-        // Log for debugging
-        Log.d(TAG, "Week: $weekOfYear, Month: $monthName")
-        Log.d(TAG, "Dates: $mondayText – $fridayText, $yearText")
+        // Update the Week Label (using the string resource now!)
+        findViewById<TextView>(R.id.tvWeekLabel).text = getString(R.string.weekly_week) + " $weekNumber — $monthName"
+        findViewById<TextView>(R.id.tvWeekDates).text =
+            "${dateFormat.format(monday)} – ${dateFormat.format(friday)}, ${calendar.get(Calendar.YEAR)}"
     }
 
-    // Loads meals from RoomDB and updates the summary section
-    private fun loadSummary() {
+    private fun loadMealsForGrid() {
         val userEmail = prefs.getString("email", "") ?: ""
 
         lifecycleScope.launch {
-            try {
-                // Get all meals for the logged-in user
-                val meals = withContext(Dispatchers.IO) {
-                    db.mealDao().getMealsByUser(userEmail)
-                }
-
-                // Log meals for debugging
-                Log.d(TAG, "=== WEEKLY PLAN DEBUG ===")
-                Log.d(TAG, "User: '$userEmail'")
-                Log.d(TAG, "Meals found: ${meals.size}")
-                meals.forEach { meal ->
-                    Log.d(TAG, "  → ${meal.name} (${meal.category}) - R${meal.cost}")
-                }
-                Log.d(TAG, "=========================")
-
-                // Calculate summary values
-                val totalCost = meals.sumOf { it.cost }
-                val totalMeals = meals.size
-                val totalSlots = 15   // 5 days × 3 meals = 15 total slots
-                val perDay = if (totalMeals > 0) totalCost / 5 else 0.0
-
-                // Update summary TextViews
-                val tvTotalCost = findViewById<TextView>(R.id.tvTotalCost)
-                val tvMealsPlanned = findViewById<TextView>(R.id.tvMealsPlanned)
-                val tvPerDayAvg = findViewById<TextView>(R.id.tvPerDayAvg)
-
-                tvTotalCost.text = "R %.2f".format(totalCost)
-                tvMealsPlanned.text = "$totalMeals/$totalSlots"
-                tvPerDayAvg.text = "R %.2f".format(perDay)
-
-            } catch (e: Exception) {
-                // Log error instead of crashing
-                Log.e(TAG, "Error loading meals: ${e.message}", e)
+            // Fetch all meals for this user
+            val meals = withContext(Dispatchers.IO) {
+                db.mealDao().getMealsByUser(userEmail)
             }
+
+            // Group by category
+            val breakfast = meals.find { it.category == "Breakfast" }
+            val lunch = meals.find { it.category == "Lunch" }
+            val dinner = meals.find { it.category == "Dinner" }
+
+            // Helper to set text or "+"
+            fun setMealText(id: Int, mealName: String?) {
+                val tv = findViewById<TextView>(id)
+                if (mealName != null) {
+                    tv.text = mealName
+                    tv.setTextColor(Color.parseColor("#333333"))
+                } else {
+                    tv.text = "+"
+                    tv.setTextColor(Color.parseColor("#19B957"))
+                }
+            }
+
+            setMealText(R.id.tvMonBreakfast, breakfast?.name)
+            setMealText(R.id.tvMonLunch, lunch?.name)
+            setMealText(R.id.tvMonDinner, dinner?.name)
+
+            val emptyCells = listOf(
+                R.id.tvTueBreakfast, R.id.tvWedBreakfast, R.id.tvThuBreakfast, R.id.tvFriBreakfast,
+                R.id.tvTueLunch, R.id.tvWedLunch, R.id.tvThuLunch, R.id.tvFriLunch,
+                R.id.tvTueDinner, R.id.tvWedDinner, R.id.tvThuDinner, R.id.tvFriDinner
+            )
+            emptyCells.forEach { setMealText(it, null) }
+
+            // Update summary
+            val totalCost = meals.sumOf { it.cost }
+            val totalMeals = meals.size
+            val perDay = if (totalMeals > 0) totalCost / 5 else 0.0
+
+            findViewById<TextView>(R.id.tvTotalCost).text = "R %.2f".format(totalCost)
+            findViewById<TextView>(R.id.tvMealsPlanned).text = "$totalMeals/15"
+            findViewById<TextView>(R.id.tvPerDayAvg).text = "R %.2f".format(perDay)
+
+            Log.d(TAG, "Loaded ${meals.size} meals")
         }
     }
 }

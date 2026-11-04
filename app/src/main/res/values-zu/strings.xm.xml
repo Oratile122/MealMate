@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MealMate</string>
+
+    <!-- Login -->
+    <string name="login_welcome">Siyakwamukela!</string>
+    <string name="login_subtitle">Ngena ukuhlela ukudla kwakho</string>
+    <string name="login_email_label">Ikheli le-imeyili</string>
+    <string name="login_password_label">Iphasiwedi</string>
+    <string name="login_button">Ngena</string>
+    <string name="login_google">Ngena nge-Google</string>
+    <string name="login_register_link">Dala i-akhawunti</string>
+
+    <!-- Register -->
+    <string name="register_title">Dala i-akhawunti yakho</string>
+    <string name="register_name_label">Igama eliphelele</string>
+    <string name="register_email_label">Ikheli le-imeyili</string>
+    <string name="register_password_label">Iphasiwedi</string>
+    <string name="register_confirm_label">Qinisekisa iphasiwedi</string>
+    <string name="register_button">Dala i-akhawunti</string>
+
+    <!-- Home -->
+    <string name="home_today_meals">Ukudla Kwanamuhla</string>
+    <string name="home_budget_label">ISABHUDJETHI SESONTO</string>
+    <string name="home_nutrition_title">Ukudla Kwanamuhla</string>
+
+    <!-- Nav -->
+    <string name="nav_home">🏠 Ikhaya</string>
+    <string name="nav_planner">📅 Uhlelo</string>
+    <string name="nav_shop">🛒 Ukuthenga</string>
+    <string name="nav_profile">👤 Iphrofayili</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Iphrofayili</string>
+    <string name="settings_premium">Ilungu le-Premium</string>
+    <string name="settings_preferences">IZINTANDO</string>
+    <string name="settings_budget">Isabelomali</string>
+    <string name="settings_dietary">Ukudla Okuthandwayo</string>
+    <string name="settings_language">Ulimi</string>
+    <string name="settings_notifications">Izaziso</string>
+    <string name="settings_account">I-Akhawunti</string>
+    <string name="settings_edit_profile">Hlela Iphrofayili</string>
+    <string name="settings_privacy">Inqubomgomo Yobumfihlo</string>
+    <string name="settings_help">Usizo Nosekelo</string>
+    <string name="settings_save">Gcina Izinguquko</string>
+    <string name="settings_logout">Phuma</string>
+
+    <!-- Weekly Plan -->
+    <string name="weekly_title">Uhlelo Lwesonto</string>
+    <string name="weekly_add_meal">+ Engeza Ukudla</string>
+    <string name="weekly_week">Iviki</string>
+    <string name="weekly_total_cost">Izindleko Zonke</string>
+    <string name="weekly_meals_planned">Ukudla Okuhleliwe</string>
+    <string name="weekly_per_day">Isilinganiso ngosuku</string>
+    <string name="weekly_breakfast">Ukudla Kwasekuseni</string>
+    <string name="weekly_lunch">Ukudla Kwasemini</string>
+    <string name="weekly_dinner">Ukudla Kwakusihlwa</string>
+    <string name="weekly_back">←</string>
+
+    <!-- Create Meal -->
+    <string name="create_meal_title">Engeza Ukudla Okusha</string>
+    <string name="create_meal_subtitle">Bhala ukudla kwakho</string>
+    <string name="create_meal_subtitle2">Landelela ukudla nokusebenzisa imali</string>
+    <string name="create_meal_name_label">IGAMA LOKUDLA</string>
+    <string name="create_meal_name_hint">isb. I-Saladi Yenkosikazi</string>
+    <string name="create_meal_category_label">ISIGABA</string>
+    <string name="create_meal_category_default">Khetha isigaba</string>
+    <string name="create_meal_ingredients_label">IZITHAKO</string>
+    <string name="create_meal_ingredients_hint">isb. U-lettuce, inkukhu eyosiwe...</string>
+    <string name="create_meal_cost_label">IZINDLEKO (R)</string>
+    <string name="create_meal_cost_hint">R 0.00</string>
+    <string name="create_meal_cal_label">AMAKHALORI</string>
+    <string name="create_meal_cal_hint">kcal</string>
+    <string name="create_meal_tip">Ithiphu: Faka amakhalori asuka kulebula noma usebenzise ithebula lezokudla.</string>
+    <string name="create_meal_save">Gcina Ukudla</string>
+</resources>

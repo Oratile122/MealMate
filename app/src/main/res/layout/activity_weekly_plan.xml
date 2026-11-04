@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Weekly Plan screen layout - shows the 5-day meal grid -->
-<!-- Contains: week selector, meal grid (breakfast/lunch/dinner rows), summary, add button -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- ===== HEADER WITH BACK BUTTON ===== -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +20,6 @@
             android:background="#FFFFFF"
             android:elevation="4dp">
 
-            <!-- Back arrow -->
             <TextView
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
@@ -34,7 +31,6 @@
                 android:clickable="true"
                 android:focusable="true" />
 
-            <!-- Screen title -->
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,10 +40,9 @@
                 android:textStyle="bold"
                 android:textColor="#08752F"
                 android:gravity="center" />
-
         </LinearLayout>
 
-        <!-- ===== WEEK SELECTOR (with arrows) ===== -->
+        <!-- Week Selector -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,16 +53,14 @@
             android:layout_marginTop="8dp"
             android:elevation="2dp">
 
-            <!-- Left arrow (previous week - not implemented) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="←"
+                android:text="@string/weekly_back"
                 android:textSize="24sp"
                 android:textColor="#19B957"
                 android:padding="8dp" />
 
-            <!-- Week label - updated dynamically (e.g. "Week 39 — September") -->
             <TextView
                 android:id="@+id/tvWeekLabel"
                 android:layout_width="0dp"
@@ -79,7 +72,6 @@
                 android:textColor="#333333"
                 android:gravity="center" />
 
-            <!-- Right arrow (next week - not implemented) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,33 +79,30 @@
                 android:textSize="24sp"
                 android:textColor="#19B957"
                 android:padding="8dp" />
-
         </LinearLayout>
 
-        <!-- ===== DATE RANGE (Mon - Fri) - updated dynamically ===== -->
         <TextView
             android:id="@+id/tvWeekDates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weekly_dates"
+            android:text="Dates"
             android:textColor="#78817F"
             android:textSize="12sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp" />
 
-        <!-- ===== MEAL GRID ===== -->
+        <!-- Meal Grid Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#FFFFFF"
-            android:padding="12dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:layout_marginHorizontal="8dp"
             android:elevation="2dp">
 
-            <!-- ===== GRID HEADER ROW (day names) ===== -->
+            <!-- Header Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,7 +110,6 @@
                 android:background="#E8F5E9"
                 android:padding="8dp">
 
-                <!-- Empty corner cell -->
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -129,374 +117,119 @@
                     android:text=" "
                     android:textStyle="bold" />
 
-                <!-- Day headers -->
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="MON 4"
-                    android:textColor="#08752F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:id="@+id/tvHeaderMon"
+                    style="@style/MealHeader" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TUE 5"
-                    android:textColor="#08752F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:id="@+id/tvHeaderTue"
+                    style="@style/MealHeader" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="WED 6"
-                    android:textColor="#08752F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:id="@+id/tvHeaderWed"
+                    style="@style/MealHeader" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="THU 7"
-                    android:textColor="#08752F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+                    android:id="@+id/tvHeaderThu"
+                    style="@style/MealHeader" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="FRI 8"
-                    android:textColor="#08752F"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
+                    android:id="@+id/tvHeaderFri"
+                    style="@style/MealHeader" />
             </LinearLayout>
 
-            <!-- ===== BREAKFAST ROW ===== -->
+            <!-- Breakfast Row -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
+                style="@style/MealRow"
                 android:background="#FAFAFA">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:text="Breakfast"
-                    android:textColor="#333333"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
+                    style="@style/MealRowLabel"
+                    android:text="@string/weekly_breakfast" />
 
-                <!-- Monday - Avocado Toast -->
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Avocado Toast"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <!-- Tuesday - Greek Yogurt -->
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Greek Yogurt"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <!-- Wednesday - "+" button (clickable) -->
-                <TextView
-                    android:id="@+id/btnWedBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <!-- Thursday - Oat Porridge -->
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Oat Porridge"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <!-- Friday - "+" button -->
-                <TextView
-                    android:id="@+id/btnFriBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
+                <TextView android:id="@+id/tvMonBreakfast" style="@style/MealCell" />
+                <TextView android:id="@+id/tvTueBreakfast" style="@style/MealCell" />
+                <TextView android:id="@+id/tvWedBreakfast" style="@style/MealCell" />
+                <TextView android:id="@+id/tvThuBreakfast" style="@style/MealCell" />
+                <TextView android:id="@+id/tvFriBreakfast" style="@style/MealCell" />
             </LinearLayout>
 
-            <!-- ===== LUNCH ROW ===== -->
+            <!-- Lunch Row -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
+                style="@style/MealRow"
                 android:background="#FFFFFF">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:text="Lunch"
-                    android:textColor="#333333"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
+                    style="@style/MealRowLabel"
+                    android:text="@string/weekly_lunch" />
 
-                <TextView
-                    android:id="@+id/btnMonLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Chicken Wrap"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/btnWedLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tomato Soup"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tuna Poke"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
+                <TextView android:id="@+id/tvMonLunch" style="@style/MealCell" />
+                <TextView android:id="@+id/tvTueLunch" style="@style/MealCell" />
+                <TextView android:id="@+id/tvWedLunch" style="@style/MealCell" />
+                <TextView android:id="@+id/tvThuLunch" style="@style/MealCell" />
+                <TextView android:id="@+id/tvFriLunch" style="@style/MealCell" />
             </LinearLayout>
 
-            <!-- ===== DINNER ROW ===== -->
+            <!-- Dinner Row -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
+                style="@style/MealRow"
                 android:background="#FAFAFA">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:text="Dinner"
-                    android:textColor="#333333"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
+                    style="@style/MealRowLabel"
+                    android:text="@string/weekly_dinner" />
 
-                <TextView
-                    android:id="@+id/btnMonDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Grilled Salmon"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/btnWedDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Chicken Stir-fry"
-                    android:textColor="#333333"
-                    android:textSize="10sp"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/btnFriDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="+"
-                    android:textColor="#19B957"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-
+                <TextView android:id="@+id/tvMonDinner" style="@style/MealCell" />
+                <TextView android:id="@+id/tvTueDinner" style="@style/MealCell" />
+                <TextView android:id="@+id/tvWedDinner" style="@style/MealCell" />
+                <TextView android:id="@+id/tvThuDinner" style="@style/MealCell" />
+                <TextView android:id="@+id/tvFriDinner" style="@style/MealCell" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- ===== SUMMARY SECTION (total, meals planned, per day) ===== -->
+        <!-- Summary Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginHorizontal="8dp"
             android:background="#FFFFFF"
             android:elevation="2dp">
 
-            <!-- Total cost column -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
+            <LinearLayout style="@style/SummaryBlock">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weekly_total_cost"
-                    android:textSize="12sp"
-                    android:textColor="#78817F" />
+                    style="@style/SummaryLabel"
+                    android:text="@string/weekly_total_cost" />
 
-                <!-- Total cost value - updated in code -->
                 <TextView
                     android:id="@+id/tvTotalCost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R 0.00"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#19B957" />
-
+                    style="@style/SummaryValue" />
             </LinearLayout>
 
-            <!-- Meals planned column -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
+            <LinearLayout style="@style/SummaryBlock" android:gravity="center">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weekly_meals_planned"
-                    android:textSize="12sp"
-                    android:textColor="#78817F" />
+                    style="@style/SummaryLabel"
+                    android:text="@string/weekly_meals_planned" />
 
-                <!-- Meals count - updated in code -->
                 <TextView
                     android:id="@+id/tvMealsPlanned"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0/15"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#19B957" />
-
+                    style="@style/SummaryValue" />
             </LinearLayout>
 
-            <!-- Per day average column -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="end">
-
+            <LinearLayout style="@style/SummaryBlock" android:gravity="end">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/weekly_per_day"
-                    android:textSize="12sp"
-                    android:textColor="#78817F" />
+                    style="@style/SummaryLabel"
+                    android:text="@string/weekly_per_day" />
 
-                <!-- Per day value - updated in code -->
                 <TextView
                     android:id="@+id/tvPerDayAvg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R 0.00"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#19B957" />
-
+                    style="@style/SummaryValue" />
             </LinearLayout>
-
         </LinearLayout>
 
-        <!-- ===== ADD MEAL BUTTON ===== -->
         <Button
             android:id="@+id/btnAddMeal"
             android:layout_width="match_parent"
@@ -509,16 +242,5 @@
             android:textStyle="bold"
             android:backgroundTint="#19B957" />
 
-        <!-- ===== HINT TEXT AT BOTTOM ===== -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/weekly_hint"
-            android:textColor="#78817F"
-            android:textSize="10sp"
-            android:layout_marginBottom="16dp" />
-
     </LinearLayout>
-
 </ScrollView>

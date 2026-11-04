@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     // Tag for Logcat logging
     private val TAG = "HomeActivity"

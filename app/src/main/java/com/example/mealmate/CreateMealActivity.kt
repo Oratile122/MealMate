@@ -13,7 +13,6 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.mealmate.database.AppDatabase
 import com.example.mealmate.database.MealEntity
@@ -22,8 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CreateMealActivity : AppCompatActivity() {
-
+class CreateMealActivity : BaseActivity() {
     // Tag for Logcat logging
     private val TAG = "CreateMealActivity"
 
@@ -50,6 +48,7 @@ class CreateMealActivity : AppCompatActivity() {
         val btnSave = findViewById<Button>(R.id.btnSave)
 
         // Load meal categories from strings.xml into the spinner
+        // This automatically picks up the translated array if the language is changed
         val categories = resources.getStringArray(R.array.meal_categories)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -66,13 +65,16 @@ class CreateMealActivity : AppCompatActivity() {
             val costStr = etCost.text.toString().trim()
             val caloriesStr = etCalories.text.toString().trim()
 
+            // Get the first item of the array (which is "Select a category" in the current language)
+            val defaultCategoryText = categories[0]
+
             // Validate input fields
             when {
                 name.isEmpty() -> {
                     etMealName.error = "Please enter meal name"
                     etMealName.requestFocus()
                 }
-                category == "Select a category" -> {
+                category == defaultCategoryText -> {
                     Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
                 }
                 ingredients.isEmpty() -> {
@@ -103,7 +105,7 @@ class CreateMealActivity : AppCompatActivity() {
         button: Button
     ) {
         button.isEnabled = false
-        button.text = "Saving..."
+        button.text = getString(R.string.create_meal_save) + "..."
 
         // Get the current user's email
         val userEmail = prefs.getString("email", "") ?: ""
@@ -140,6 +142,8 @@ class CreateMealActivity : AppCompatActivity() {
             // Reset button and show confirmation
             button.isEnabled = true
             button.text = getString(R.string.create_meal_save)
+
+            // Show translated toast message
             Toast.makeText(this@CreateMealActivity, "Meal saved!", Toast.LENGTH_SHORT).show()
 
             // Close this screen and return to Weekly Plan
