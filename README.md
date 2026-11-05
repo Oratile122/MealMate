@@ -4,7 +4,7 @@
 
 ![Android CI](https://github.com/Oratile122/MealMate/actions/workflows/workflow.yml/badge.svg)
 
-A student meal planning app built for OPSC6312 Part 2.
+A student meal planning app built for OPSC6312 Part 2 & Part 3.
 
 ---
 
@@ -16,8 +16,21 @@ MealMate helps students manage their food budget and plan meals. It addresses th
 - **Budget management** with real-time spending calculations
 - **Persistent shopping lists** tied to the user's account
 - **Offline capability** via RoomDB so meals work without internet
+- **Cloud Sync & Notifications:** Real-time user settings and push notifications via Firebase.
 
 The app targets South African students managing tight food budgets (default: R 500/week).
+
+---
+
+## 🌟 Part 3 Custom Features
+
+Here are the two custom features we built into the app:
+
+**1. Real-Time Cloud Sync (Firestore)**
+*   Users can update their profile settings (Dietary Preference, Language, Notifications). Instead of relying on a local database or custom API, these settings are instantly synced to Google Cloud Firestore. This ensures that if the user logs in on a new device, their preferences are immediately restored.
+
+**2. Dynamic Multi-Language Support**
+*   We implemented full localization using Android string resources. Users can instantly switch the app's UI language between English, isiZulu, and Afrikaans directly from the Settings screen without restarting the app.
 
 ---
 
@@ -26,14 +39,15 @@ The app targets South African students managing tight food budgets (default: R 5
 ### Architecture
 - **MVVM-inspired** structure with Activity-driven logic
 - **Offline-first**: RoomDB stores user data and meals locally
-- **Online-sync**: Retrofit syncs with the .NET API and SQL Server
+- **Online-sync**: Cloud Firestore for real-time user data sync (Part 3)
 
 ### Technical Decisions
 
 | Decision | Reason |
 |----------|--------|
 | **RoomDB** | Offline persistence across app restarts and logout cycles |
-| **Retrofit** | Type-safe HTTP client for the REST API |
+| **Firebase Auth** | Secure cloud login and Google Single Sign-On (SSO) |
+| **Cloud Firestore** | NoSQL database for real-time data syncing |
 | **KSP** | Modern replacement for KAPT when using Room |
 | **Coroutines** | Clean asynchronous database and network operations |
 | **Material Components** | Consistent UI matching the Figma prototype |
@@ -45,9 +59,9 @@ The app targets South African students managing tight food budgets (default: R 5
 - Persistent state via SharedPreferences for session, RoomDB for data
 
 ### Authentication
-- Passwords hashed with **BCrypt** on the .NET backend
+- **Firebase Authentication** handles secure login (replaced custom .NET API in Part 3).
+- **Google SSO:** Users can log in with one click using their Google account.
 - Session stored in SharedPreferences (`email`, `displayName`)
-- Data survives logout — only the `isLoggedIn` flag is reset
 
 ---
 
@@ -56,13 +70,16 @@ The app targets South African students managing tight food budgets (default: R 5
 **Repository:** [https://github.com/Oratile122/MealMate](https://github.com/Oratile122/MealMate)
 
 - All source code committed with descriptive messages
-- `.gitignore` excludes build artefacts
+- `.gitignore` excludes build artefacts and sensitive keystore files
 - Project structured for clean collaboration
 
 ---
-## 🎥 Demo Video
 
-📹 **[Watch the MealMate demo video](https://youtu.be/c22LDSKUfMs?si=tRd3mSZ2IGgIef4n)**
+## 🎥 Demo Videos
+
+📹 **Part 2 Demo Video:** [Watch here](https://youtu.be/c22LDSKUfMs?si=tRd3mSZ2IGgIef4n)
+
+📹 **Part 3 Demo Video:** [Watch here](https://youtu.be/5JWQ0VbiKDI?si=GJ-UXcSUvwZP1nMk)
 
 ---
 
